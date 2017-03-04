@@ -39,8 +39,9 @@ export class Todo extends Component {
     render() {
         return (
             <div onClick={this.clickHandler}>
-                <label>New Task : 
+                <label>
                     <input
+                        id='txtNewTask'
                         onKeyPress={this.keyPressHandler}
                         onChange={this.keyUpHandler}
                         value={this.state.taskDesc}/>
