@@ -5,6 +5,7 @@ export class TodoList extends Component {
 
     constructor() {
         super();
+        this.checkBoxChangeHandler = this.checkBoxChangeHandler.bind(this);
         this.state = {
             tasks: []
         };
@@ -16,20 +17,24 @@ export class TodoList extends Component {
             }));
         });
     }
-    render() {
+    checkBoxChangeHandler(eve){
+        if(eve.target.checked){
+            appStore.dispatch({type : 'MARK_AS_COMPLETED', payload : {_id : eve.target.getAttribute('data-id')} });
+        }
+    }
+    render() {   
         return (
             <ul id="tasksList">
-
                 {this
                     .state
                     .tasks
                     .map((task, idx) => (
 
-                        <li className="todoItem" key={idx}>
+                        <li className={"todoItem " + (task.isCompleted ? 'isDone' :'' )} key={idx} >
 
                             <label>
                                 <div className="checkBoxContainer">
-                                    <input type="checkbox"/>
+                                    <input type="checkbox" data-id={task._id} disabled={task.isCompleted} onChange={this.checkBoxChangeHandler}/>
                                 </div>
 
                                 <div className="taskDescContainer">

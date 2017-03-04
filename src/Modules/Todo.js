@@ -26,12 +26,16 @@ export class Todo extends Component {
         this.setState((prevState) => ({taskDesc: newVal}));
     }
     keyPressHandler(e) {
-        let newVal = e.target.value;
+        let newVal = e.target.value.trim();
         if (e.which === 13) {
+            if(!newVal){
+                return;
+            }
             appStore.dispatch({
                 type: "ADD_TODO",
                 payload: {
-                    text: newVal
+                    text: newVal,
+                    isCompleted : false
                 }
             });
         }
